@@ -1,9 +1,10 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+# views.py
+
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView, FormView, TemplateView)
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -65,17 +66,24 @@ class BlogListView(ListView):
     def get_queryset(self):
         return Blog.objects.all()
 
-
 class SignUpView(CreateView):
     form_class = SignUpForm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy('profile')
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        login(self.request, self.object)
+        role = form.cleaned_data['role']
+        user = form.save()
+
+        if role == 'admin':
+            user.is_staff = True
+            user.is_superuser = True
+
+        user.save()
+
+        login(self.request, user)
         messages.success(self.request, '¡Registro exitoso! ¡Bienvenido!')
-        return response
+        return super().form_valid(form)
 
 
 

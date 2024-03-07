@@ -9,19 +9,26 @@ class SignUpForm(UserCreationForm):
         help_text='Campo obligatorio. Ingrese una dirección de correo electrónico válida.'
     )
 
+    ROLES = [
+        ('admin', 'Administrador'),
+        ('viewer', 'Visualizador'),
+    ]
+
+    role = forms.ChoiceField(choices=ROLES, label='Rol')
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'role']
         labels = {
             'username': 'Nombre de usuario',
             'email': 'Correo electrónico',
             'password1': 'Contraseña',
             'password2': 'Confirmar contraseña',
+            'role': 'Rol',
         }
         help_texts = {
             'username': 'Requerido. 150 caracteres o menos. Letras, dígitos y @/./+/-/_ solamente.',
         }
-
 class LoginForm(AuthenticationForm):
     class Meta:
         model = User
