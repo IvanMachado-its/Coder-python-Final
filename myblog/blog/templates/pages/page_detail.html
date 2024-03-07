@@ -1,0 +1,14 @@
+<!-- templates/pages/page_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Página{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>{{ page.title }}</h2>
+    <p>{{ page.content }}</p>
+    <p>Autor: {{ page.author.username }}</p>
+    <p>Fecha de Creación: {{ page.created_at }}</p>
+    <p>Última Actualización: {{ page.updated_at }}</p>
+  </div>
+{% endblock %}

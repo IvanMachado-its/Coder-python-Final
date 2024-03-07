@@ -1,0 +1,20 @@
+<!-- pages.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>All Blogs</h2>
+    {% if blogs %}
+      <ul>
+        {% for blog in blogs %}
+          <li>
+            <a href="{% url 'blog_detail' pk=blog.id %}">{{ blog.title }}</a> - {{ blog.author.username }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No blogs yet.</p>
+    {% endif %}
+  </div>
+{% endblock %}

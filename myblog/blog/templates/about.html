@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Your Profile</h2>
+          </div>
+          <div class="card-body">
+            <img src="{{ profile.image.url }}" alt="Profile Image" class="img-fluid mb-3">
+            <p><strong>Username:</strong> {{ profile.user.username }}</p>
+            <p><strong>Email:</strong> {{ user_email }}</p>
+            <p><strong>Description:</strong> {{ profile.description }}</p>
+            <p><strong>Website:</strong> {{ profile.website }}</p>
+            <p><strong>Biography:</strong> {{ profile.bio }}</p>
+            <img src="{{ profile.profile_pic.url }}" alt="Profile Picture" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

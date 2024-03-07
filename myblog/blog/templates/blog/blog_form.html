@@ -1,0 +1,54 @@
+<!-- templates/blog/blog_form.html -->
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Crear Nuevo Blog</h2>
+          </div>
+          <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Título</label>
+                    {{ form.title }}
+                </div>
+            
+                <div class="form-group">
+                    <label for="{{ form.content.id_for_label }}">Contenido</label>
+                    {{ form.content }}
+                </div>
+            
+                <button type="submit" class="btn btn-success mt-3">Publicar Blog</button>
+            </form>
+       </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var blogForm = document.getElementById('blog-form');
+    
+        blogForm.addEventListener('submit', function (event) {
+            event.preventDefault();  
+            blogForm.reset();
+            var alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-success mt-3';
+            alertDiv.textContent = 'Blog publicado correctamente.';
+            blogForm.parentNode.insertBefore(alertDiv, blogForm);
+            setTimeout(function () {
+                alertDiv.remove();
+            }, 5000);
+        });
+    });
+    </script>
+    
